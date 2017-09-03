@@ -11,6 +11,7 @@ class A_USR
     var $DBcon = "";
     var $lastId = "";
     var $tmpguid="";
+    var $domain = "";
     /* Constructor: User passes in the name of the script where
         * form data is to be sent ($processor) and the value to show
         * on the submit button.
@@ -29,13 +30,16 @@ class A_USR
         $instabla->set_tusuarios();
 
         $this->campos = $instabla->get_tusuarios();
+
+        $this->domain = C_DOMAIN;
     }
 
 
     /**
      * Almacena los datos generales del usuario
      */
-    function add_data($id,$user,$nombre,$email,$bdate,$nation,$curp,$passport,$www,$fb,$tw,$ins,$linkedin,$photo1,$photo2,$pass,$uuid,$status,$regdate)
+    function add_data($id,$user,$nombre,$email,$bdate,$nation,$curp,$passport,$www,$fb,$tw,$ins,$linkedin,$photo1,
+                      $photo2,$pass,$uuid,$status,$regdate,$tipo,$tel,$desc)
     {
         $this->datos['d0'] = $id;
         $this->datos['d1'] = $user;
@@ -56,6 +60,9 @@ class A_USR
         $this->datos['d16'] = $uuid;
         $this->datos['d17'] = $status;
         $this->datos['d18'] = $regdate;
+        $this->datos['d19'] = $tipo;
+        $this->datos['d20'] = $tel;
+        $this->datos['d21'] = $desc;
     }
 
     function get_data()
@@ -81,11 +88,11 @@ class A_USR
 
         $query = "INSERT INTO ".$this->tableName." 
                     (".$this->campos['d1'].",".$this->campos['d2'].",".$this->campos['d15']."
-					,".$this->campos['d16'].",".$this->campos['d18'].") 
+					,".$this->campos['d16'].",".$this->campos['d18'].",".$this->campos['d19'].") 
 					VALUES
 					(
 					'" . $this->datos['d1'] ."','". $this->datos['d2'] . "'
-                    ,'" . $this->datos['d15'] ."','" . $guid ."','". $now . "'
+                    ,'" . $this->datos['d15'] ."','" . $guid ."','". $now . "','". $this->datos['d19'] . "'
 					)";
 
         $stmt = $DBcon->prepare($query);
@@ -93,17 +100,12 @@ class A_USR
         // check for successfull registration
         if ( $stmt->execute() ) {
 
+            // obtengo el ultimo ID
             $this->set_lastId($DBcon->lastInsertId());
-
-            //establecer permisos
-            //$respuesta = $this->ins_permisos($DBcon,$userId,$this->data['data3']);
-
-            // envia correo de registro
-            //$this->send_regMail('info@jadecapitalflow.com',$this->data['data1'],$guid);
 
             $response['status'] = 'success';
             $response['message'] = 'Registro exitoso, Gracias!';
-            $response['debug'] = '-S-';
+            $response['debug'] = '-S-'.$query;
 
         } else {
             $response['status'] = 'error'; // could not register
@@ -117,10 +119,11 @@ class A_USR
     /***
      * Verifica si existe un usuario
      */
-    function user_exist($DBcon, $mail)
+    function user_exist($DBcon, $mail, $subquery="")
     {
-        $query = "SELECT ".$this->campos['d3']." FROM ".$this->tableName." 
-                  WHERE ".$this->campos['d3']."= '".$mail."'";
+        $query = "SELECT ".$this->campos['d1']." FROM ".$this->tableName." 
+                  WHERE ".$this->campos['d1']."= '".$mail."'";
+        $query.=$subquery;
 
         $stmt = $DBcon->prepare($query);
         $stmt->execute();
@@ -128,12 +131,12 @@ class A_USR
         if ($stmt->rowCount() == 1) {
             $response['status'] = 'error'; // could not register
             $response['message'] = 'Usuario existente';
-            $response['debug'] = '-S-';
+            $response['debug'] = '-E-'.$query;
 
         } else {
             $response['status'] = 'success'; // could not register
-            $response['message'] = 'Usuario inexistente';
-            $response['debug'] = '-E-';
+            $response['message'] = 'Usuario inexistente o ingreso equivocado';
+            $response['debug'] = '-S-'.$query;
         }
 
         return $response;
@@ -147,7 +150,7 @@ class A_USR
     {
         $subject = 'Bienvenido a Jade Capital Flow';
 
-        $link = $this->domain.'tusuarios/confirm.php?';
+        $link = $this->domain.'confirm.php?';
         $link .= 'user='.$to.'&id='.$guid;
 
 
@@ -166,13 +169,13 @@ class A_USR
         {
             $response['status'] = 'success';
             $response['message'] = 'Mail de confirmacion enviado';
-            $response['debug'] = '-S-';
+            $response['debug'] = '-S-'.$link;
         }
         else
         {
             $response['status'] = 'error'; // could not register
             $response['message'] = 'No se pudo enviar mail de confirmacion';
-            $response['debug'] = '-S-';
+            $response['debug'] = '-E-'.$link;
         }
 
         return $response;
@@ -191,11 +194,11 @@ class A_USR
         if ( $stmt->execute() ) {
             $response['status'] = 'success';
             $response['message'] = 'Perfil Aplicado';
-            $response['debug'] = '-S-';
+            $response['debug'] = '-S-'.$query;
         } else {
             $response['status'] = 'error'; // could not register
             $response['message'] = 'No se pudo aplicar el perfil';
-            $response['debug'] = '-S-';
+            $response['debug'] = '-E-'.$query;
         }
 
         return $response;
@@ -208,8 +211,7 @@ class A_USR
         $query = '';
         if($tipo == 'I')
         {
-            /*
-            $query = 'INSERT INTO permisos_usr (idpermiso, idusuario, cpermis) VALUES
+            $query = 'INSERT INTO tpermisos_usr (idpermiso, idusuario, cpermiso) VALUES
             (1, '.$idusuario.', 1),
             (2, '.$idusuario.', 1),
             (3, '.$idusuario.', 1),
@@ -218,32 +220,19 @@ class A_USR
             (6, '.$idusuario.', 1),
             (7, '.$idusuario.', 0),
             (8, '.$idusuario.', 0),
-            (9, '.$idusuario.', 1),
+            (9, '.$idusuario.', 0),
             (10, '.$idusuario.', 0),
             (11, '.$idusuario.', 0),
             (12, '.$idusuario.', 0),
             (13, '.$idusuario.', 1),
             (14, '.$idusuario.', 1),
-            (15, '.$idusuario.', 0),
-            (16, '.$idusuario.', 1),
-            (17, '.$idusuario.', 0),
-            (18, '.$idusuario.', 0),
-            (19, '.$idusuario.', 0),
-            (20, '.$idusuario.', 0),
-            (21, '.$idusuario.', 0),
-            (22, '.$idusuario.', 0),
-            (23, '.$idusuario.', 0),
-            (24, '.$idusuario.', 1),
             (25, '.$idusuario.', 0),
-            (26, '.$idusuario.', 0),
-            (27, '.$idusuario.', 0);';
-            */
+            (26, '.$idusuario.', 0);';
         }
 
         if($tipo == 'E')
         {
-            /*
-            $query = 'INSERT INTO permisos_usr (idpermiso, idusuario, cpermis) VALUES
+            $query = 'INSERT INTO tpermisos_usr (idpermiso, idusuario, cpermiso) VALUES
             (1, '.$idusuario.', 1),
             (2, '.$idusuario.', 1),
             (3, '.$idusuario.', 1),
@@ -253,28 +242,246 @@ class A_USR
             (7, '.$idusuario.', 1),
             (8, '.$idusuario.', 1),
             (9, '.$idusuario.', 1),
-            (10, '.$idusuario.', 1),
+            (10, '.$idusuario.', 0),
             (11, '.$idusuario.', 0),
-            (12, '.$idusuario.', 1),
+            (12, '.$idusuario.', 0),
             (13, '.$idusuario.', 0),
             (14, '.$idusuario.', 0),
-            (15, '.$idusuario.', 1),
-            (16, '.$idusuario.', 1),
-            (17, '.$idusuario.', 1),
-            (18, '.$idusuario.', 1),
-            (19, '.$idusuario.', 0),
-            (20, '.$idusuario.', 0),
-            (21, '.$idusuario.', 0),
-            (22, '.$idusuario.', 0),
-            (23, '.$idusuario.', 0),
-            (24, '.$idusuario.', 0),
             (25, '.$idusuario.', 1),
-            (26, '.$idusuario.', 0),
-            (27, '.$idusuario.', 0);';
-            */
+            (26, '.$idusuario.', 0);';
         }
 
         return $query;
+    }
+
+    /***
+     * Obtains a user general data
+     */
+    function get_userdata($DBcon, $mail, $subquery="")
+    {
+        $query= "SELECT * FROM ".$this->tableName." WHERE ".$this->campos['d1']." = '".$mail."'";
+        $query.=$subquery;
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+        $obj = $stmt->fetchObject();
+        // regresa un solo registro
+        return $obj;
+    }
+
+    /***
+     * Obtains a user permisos
+     */
+    function get_userpermisos($DBcon, $idUsuario)
+    {
+        $query= "SELECT * FROM tpermisos_usr WHERE idusuario = '".$idUsuario."'";
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+        // regresa de 1 a n registros
+        return $stmt;
+    }
+
+    /***
+     * para confirmar usuario
+     */
+    function confirm_user($DBcon, $mail, $guid)
+    {
+
+        $query = "SELECT ".$this->campos['d1']." FROM ".$this->tableName." 
+        WHERE ".$this->campos['d1']."= '".$mail."' 
+        and ".$this->campos['d17']."='1' and ".$this->campos['d16']."='".$guid."'";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1) {
+            // actualizar estatus de usuario a confirmado (estatus = 1)
+            $response = $this->upd_userconfirm($DBcon,$mail,$guid);
+
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo confirmar, Usuario no existe, favor de registrarse';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+
+    }
+
+
+    /***
+     * Actualiza el estatus de usuario a confirmado
+     */
+    private function upd_userconfirm($DBcon, $mail, $guid)
+    {
+        $query = "UPDATE ".$this->tableName." SET ".$this->campos['d17']." = '2' 
+                    WHERE ".$this->campos['d1']."  = '".$mail."' 
+                    AND ".$this->campos['d16']." = '".$guid."'
+					";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Registro exitoso, Gracias! favor de iniciar sesion:';
+            $response['debug'] = '-S-'.$query;
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo registrar, favor de registrarse: <br/>http://www.jadecapitalflow.com/';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+    }
+
+    /***
+     * Actualiza datos de usuario (perfil)
+     * cumple,curp,pasaporte,www,fb,tw,ins,about,pais
+     */
+    function upd_userperfil($DBcon, $id)
+    {
+        $query = "UPDATE ".$this->tableName." SET 
+                    ".$this->campos['d4']." = '".$this->datos['d4'] ."',
+                    ".$this->campos['d5']." = '".$this->datos['d5'] ."',
+                    ".$this->campos['d6']." = '".$this->datos['d6'] ."',
+                    ".$this->campos['d7']." = '".$this->datos['d7'] ."',
+                    ".$this->campos['d8']." = '".$this->datos['d8'] ."',
+                    ".$this->campos['d9']." = '".$this->datos['d9'] ."',
+                    ".$this->campos['d10']." = '".$this->datos['d10'] ."',
+                    ".$this->campos['d11']." = '".$this->datos['d11'] ."',
+                    ".$this->campos['d21']." = '".$this->datos['d21'] ."'                      
+                    WHERE ".$this->campos['d0']."  = '".$id."' 
+                   ";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Perfil Actualizado exitosamente';
+            $response['debug'] = '-S-'.$query;
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo actualizar el perfil';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+    }
+
+
+    /***
+     * Actualiza datos de cuenta (perfil)
+     * nombre, correo alternativo, tel
+     */
+    function upd_usercuenta($DBcon, $id)
+    {
+        $query = "UPDATE ".$this->tableName." SET 
+                    ".$this->campos['d2']." = '".$this->datos['d2'] ."',
+                    ".$this->campos['d3']." = '".$this->datos['d3'] ."',
+                    ".$this->campos['d20']." = '".$this->datos['d20'] ."'                   
+                    WHERE ".$this->campos['d0']."  = '".$id."' 
+                   ";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Cuenta Actualizada exitosamente';
+            $response['debug'] = '-S-'.$query;
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo actualizar la cuenta';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+    }
+
+
+    /***
+     * Actualiza datos de password (perfil)
+     * password
+     */
+    function upd_userpass($DBcon, $id)
+    {
+        $query = "UPDATE ".$this->tableName." SET 
+                    ".$this->campos['d15']." = '".$this->datos['d15'] ."'                 
+                    WHERE ".$this->campos['d0']."  = '".$id."' 
+                   ";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Pasword Actualizado exitosamente';
+            $response['debug'] = '-S-'.$query;
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo actualizar el password';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+    }
+
+    /***
+     * Actualiza la foto 1 del usuario
+     */
+    function upd_userphoto1($DBcon, $id, $photoPath)
+    {
+        $query = "UPDATE ".$this->tableName." SET ".$this->campos['d13']." = '".$photoPath."' 
+                    WHERE ".$this->campos['d0']."  = '".$id."' 
+					";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Foto Actualizada =)';
+            $response['debug'] = '-S-'.$query;
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo actualizar la foto';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+    }
+
+
+    /***
+     * Actualiza la foto 2 del usuario
+     */
+    function upd_userphoto2($DBcon, $id, $photoPath)
+    {
+        $query = "UPDATE ".$this->tableName." SET ".$this->campos['d14']." = '".$photoPath."' 
+                    WHERE ".$this->campos['d0']."  = '".$id."' 
+					";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Foto Actualizada =)';
+            $response['debug'] = '-S-'.$query;
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo actualizar la foto';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
     }
 
     private function set_lastId($lastId)

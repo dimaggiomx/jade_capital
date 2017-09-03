@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png">
+<title>Jade Capital Flow - Registro </title>
+<!-- Bootstrap Core CSS -->
+<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!--alerts CSS -->
+  <link href="../plugins/bower_components/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+  <!-- toast CSS -->
+  <link href="../plugins/bower_components/toast-master/css/jquery.toast.css" rel="stylesheet">
+<!-- animation CSS -->
+<link href="css/animate.css" rel="stylesheet">
+<!-- Custom CSS -->
+<link href="css/style.css" rel="stylesheet">
+<!-- color CSS -->
+<link href="css/colors/gray-dark.css" id="theme"  rel="stylesheet">
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<!-- Preloader -->
+<div class="preloader">
+  <div class="cssload-speeding-wheel"></div>
+</div>
+<section id="wrapper" class="login-register">
+  <!-- Mensajes de resultado -->
+  <div id="r_resultErrDiv" class="myadmin-alert myadmin-alert-icon myadmin-alert-click alert-danger myadmin-alert-bottom alertbottom"> <i class="ti-user"></i> Bienvenido <a href="#" class="closed">&times;</a> </div>
+  <div id="r_resultOkDiv" class="myadmin-alert myadmin-alert-icon myadmin-alert-click alert-success myadmin-alert-bottom alertbottom"> <i class="ti-user"></i> Bienvenido <a href="#" class="closed">&times;</a> </div>
+  <div id="r_resultDebDiv" class="myadmin-alert myadmin-alert-icon myadmin-alert-click alert-dark myadmin-alert-top alerttop"> <i class="ti-user"></i> DEB <a href="#" class="closed">&times;</a> </div>
+  <!-- END  msg -->
+  <div class="login-box">
+    <div class="white-box">
+      <form class="form-horizontal form-material" id="loginform" action="index.html">
+        <h3 class="box-title m-b-20">Registrar</h3>
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" type="text" required="" placeholder="Nombre" id="c_nombre" name="c_nombre">
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" type="text" required="" placeholder="E-mail" id="c_mail" name="c_mail">
+          </div>
+        </div>
+        <div class="form-group ">
+          <div class="col-xs-12">
+            <input class="form-control" type="password" required="" placeholder="Contraseña" id="c_pass" name="c_pass">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-12">
+            <input class="form-control" type="password" required="" placeholder="Confirmar contraseña" id="c_confirm" name="c_confirm">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>¿Que deseas?</label>
+          <select class="form-control" required="" id="c_tipo" name="c_tipo">
+            <option value="">--Selecciona--</option>
+            <option value="I">Deseo Invertir</option>
+            <option value="E">Busco Inversionista </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <div class="col-md-12">
+            <div class="checkbox checkbox-primary p-t-0">
+              <input id="checkbox-signup" type="checkbox" required="">
+              <label for="checkbox-signup"> Acepto <a href="#">Terminos</a></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group text-center m-t-20">
+          <div class="col-xs-12">
+            <button id="btn_sign" class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Acceder</button>
+          </div>
+        </div>
+        <div class="form-group m-b-0">
+          <div class="col-sm-12 text-center">
+            <p>Ya tengo cuenta <a href="login.html" class="text-primary m-l-5"><b>Ingresar</b></a></p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- jQuery -->
+<script src="../plugins/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Menu Plugin JavaScript -->
+<script src="../plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+
+<!--slimscroll JavaScript -->
+<script src="js/jquery.slimscroll.js"></script>
+<!--Wave Effects -->
+<script src="js/waves.js"></script>
+<script src="../plugins/bower_components/toast-master/js/jquery.toast.js"></script>
+<script src="js/toastr.js"></script>
+<script type="text/javascript">
+// para la alerta de registro existoso
+  !function($) {
+    "use strict";
+
+    var SweetAlert = function() {};
+
+            //init
+            $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
+  }(window.jQuery);
+
+</script>
+<!-- Sweet-Alert  -->
+<script src="../plugins/bower_components/sweetalert/sweetalert.min.js"></script>
+<script src="../plugins/bower_components/sweetalert/jquery.sweet-alert.custom.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="js/custom.js"></script>
+<!-- FVSD procesar -->
+<script src="tusuarios/ps_register.js"></script>
+<!--Style Switcher -->
+<script src="../plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+</body>
+</html>
