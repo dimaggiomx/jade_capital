@@ -31,14 +31,14 @@ class A_PRO
     /***
      * Registro de un nuevo proyecto
      */
-    function ins_proyecto($DBcon, $nombre, $sector, $estado)
+    function ins_proyecto($DBcon, $nombre, $sector, $estado, $idusuario)
     {
         $now = date("Y-m-d H:i:s");
 
         $query = "INSERT INTO ".$this->tableName." 
-                    (cname, csector1, cstate, cregdate) 
+                    (idusuario, cname, csector1, cstate, cregdate) 
 					VALUES
-					('".$nombre."','".$sector."','".$estado."','".$now."')";
+					('".$idusuario."', '".$nombre."','".$sector."','".$estado."','".$now."')";
 
         $stmt = $DBcon->prepare($query);
 
@@ -46,12 +46,17 @@ class A_PRO
         if ( $stmt->execute() ) {
 
             // obtengo el ultimo ID
-            $this->set_lastId($DBcon->lastInsertId());
+            $lastId = $DBcon->lastInsertId();
+            //$this->set_lastId($DBcon->lastInsertId());
+
+            $responseFiscales = $this->ins_datosFiscales($DBcon, $lastId);
+            $responseBancarios = $this->ins_datosBancarios($DBcon, $lastId);
+            $responseAvance = $this->ins_datosAvance($DBcon, $lastId);
 
             $response['status'] = 'success';
             $response['message'] = 'Registro exitoso, Gracias!';
             $response['debug'] = '-S-'.$query;
-            $response['URL'] = 'desktop.php';
+            $response['URL'] = 'project_edit.php?id='.$lastId;
 
 
         } else {
@@ -59,11 +64,6 @@ class A_PRO
             $response['message'] = 'No se pudo registrar, intente nuevamente más tarde';
             $response['debug'] = '-E-'.$query;
         }
-
-        $lastId = $DBcon->lastInsertId();
-
-        $responseFiscales = $this->ins_datosFiscales($DBcon, $lastId);
-        $responseBancarios = $this->ins_datosBancarios($DBcon, $lastId);
 
         return $response;
     }
@@ -91,6 +91,31 @@ class A_PRO
             $response['message'] = 'Registro exitoso, Gracias!';
             $response['debug'] = '-S-'.$query;
 
+
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo registrar, intente nuevamente más tarde';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+    }
+
+    private function ins_datosAvance($DBcon, $idProyecto)
+    {
+        $query = "INSERT INTO  tp_avance
+                    (idproyecto) 
+					VALUES
+					('".$idProyecto."')";
+
+        $stmt = $DBcon->prepare($query);
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+
+            $response['status'] = 'success';
+            $response['message'] = 'Registro exitoso, Gracias!';
+            $response['debug'] = '-S-'.$query;
 
         } else {
             $response['status'] = 'error'; // could not register
@@ -658,7 +683,47 @@ class A_PRO
         return $response;
     }
 
+    /***
+     * Actualiza los datos fiscales de rep legal
+     */
+    public function upd_avance($DBcon, $idProyecto, $valor )
+    {
+        $query = "UPDATE tp_avance SET 
+                avance  = '".$valor."'   
+                 WHERE  idProyecto = '".$idProyecto."' 
+				 ";
 
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Registro actualizado';
+            $response['debug'] = '-S-'.$query;
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo actualizar, favor de intentar nuevamente';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+    }
+
+
+    /***
+     * Obtains avance
+     */
+    function get_datosavance($DBcon, $id)
+    {
+        $query= "SELECT avance FROM tp_avance WHERE idproyecto = '".$id."'";
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+        $obj = $stmt->fetchObject();
+
+        // regresa un solo registro
+        return $obj->avance;
+    }
 
     /***
      * Actualiza los datos fiscales de rep legal
@@ -905,6 +970,28 @@ class A_PRO
         return $response;
     }
 
+    /***
+     * Verifica si existe un usuario
+     */
+    function get_rowsadded($DBcon, $table, $fields, $where)
+    {
+        $empty_count = 0;
+        $columa = "";
+
+        $query= "SELECT ".$fields." FROM ".$table." ".$where;
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        if ($stmt->rowCount() > 0) {
+            return 100;  //100 % con un solo registro
+
+        } else {
+           return 0;
+        }
+
+    }
+
 
     /***
      * selecciona campos NO vacios de una tabla
@@ -992,7 +1079,20 @@ class A_PRO
                             </div>';
 
         return $disp;
+    }
 
+
+    /****
+     * @param $porcentaje
+     * @return string
+     */
+    function set_displayAvanceTotalDiv($puntosTotales, $puntosCubiertos )
+    {
+        $porcentaje = ($puntosCubiertos/$puntosTotales)*100;
+        $porcentaje = round($porcentaje,-1, PHP_ROUND_HALF_UP);
+//        $porcentaje = ceil($porcentaje);
+        $disp = '<div data-label="'.$porcentaje.'%" class="css-bar css-bar-'.$porcentaje.' css-bar-sm css-bar-default"></div>';
+        return $disp;
     }
 
     private function set_lastId($lastId)
