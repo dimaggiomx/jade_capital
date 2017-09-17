@@ -34,10 +34,10 @@ if ($_POST) {
     $res = $myIns->upd_bancarios($DBcon, $idProyecto, $banco, $email, $clabe, $titular, $rfc);
 
     // verifico el porcentaje de avance
-    $cantidadPreguntas = 5;
+    $cantidadPreguntas = 6;
     $contestadas = 0;
     $tabla = "tp_bancario";
-    $fields = " cp_nombre, cp_email, cp_clabe, cp_titular, cp_rfc  ";
+    $fields = " cp_nombre, cp_email, cp_clabe, cp_titular, cp_rfc, cp_recibo  ";
     $where = " WHERE idproyecto = '".$idProyecto."'";
 
     $vacios = $myIns->get_rowsnotempty($DBcon, $tabla,$fields,$where);
@@ -48,6 +48,17 @@ if ($_POST) {
     $grafica = $myIns->set_displayAvanceDiv($porcentajeAvance);
 
     $res['grafica'] = $grafica;
+
+    // actualizo los datos totales y actualizo la grafica
+    /// Obtiene el AVANCE TOTAL ACTUAL
+    $avance = $myIns->get_datosavance($DBcon, $idProyecto);
+    if($porcentajeAvance == 100)
+    {
+        $avance = $avance+1;
+        $myIns->upd_avance($DBcon,$idProyecto,$avance);
+    }
+    $graficaTotal = $myIns->set_displayAvanceTotalDiv(18,$avance);
+    $res['graf_total'] = $graficaTotal;
 }
 
 //$response['status'] = 'error'; // could not register

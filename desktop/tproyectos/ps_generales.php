@@ -68,6 +68,18 @@ if ($_POST) {
 
     $res['grafica'] = $grafica;
 
+    // actualizo los datos totales y actualizo la grafica
+    /// Obtiene el AVANCE TOTAL ACTUAL
+    $avance = $myIns->get_datosavance($DBcon, $idProyecto);
+    if($porcentajeAvance == 100)
+    {
+        $avance = $avance+1;
+        $myIns->upd_avance($DBcon,$idProyecto,$avance);
+    }
+    $graficaTotal = $myIns->set_displayAvanceTotalDiv(18,$avance);
+    $res['graf_total'] = $graficaTotal;
+
+
 }
 
 //$response['status'] = 'error'; // could not register

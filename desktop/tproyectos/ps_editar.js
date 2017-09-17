@@ -143,6 +143,7 @@ function goGenerales(){
                     }).delay(3000).slideUp('fast');
                     // grafica de avance
                     $('#graf-generales').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
 
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
@@ -201,6 +202,7 @@ function goFiscales(){
                     }).delay(3000).slideUp('fast');
                     // grafica de avance
                     $('#graf-fiscales').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
 
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
@@ -261,6 +263,7 @@ function goInversion(){
 
                     // grafica de avance
                     $('#graf-inversion').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
 
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
@@ -320,6 +323,7 @@ function goBancarios(){
                     }).delay(3000).slideUp('fast');
                     // grafica de avance
                     $('#graf-bancarios').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
 
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
@@ -377,6 +381,10 @@ function goIdea(){
                     $('#r_resultOkDiv').slideDown('fast', function(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-idea').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
@@ -433,6 +441,10 @@ function goProducto(){
                     $('#r_resultOkDiv').slideDown('fast', function(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-producto').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
@@ -489,6 +501,10 @@ function goCompetencia(){
                     $('#r_resultOkDiv').slideDown('fast', function(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-competencia').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
@@ -581,6 +597,10 @@ function goMercado(){
                     $('#r_resultOkDiv').slideDown('fast', function(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-mercado').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
@@ -684,6 +704,10 @@ function goNegocio(){
                     $('#r_resultOkDiv').slideDown('fast', function(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-negocio').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     // para el debug
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
@@ -744,7 +768,10 @@ function goFuente(){
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
                     }).delay(6000).slideUp('fast');
-                    //getIngresos();
+                    // grafica de avance
+                    $('#graf-ingresos').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     //getCompetencia();
                     var dbingresos = {
 
@@ -834,6 +861,11 @@ function goCostos(){
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
                     }).delay(6000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-costos').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
+
                     //obtiene el grid();
                     var dbcostos = {
 
@@ -921,6 +953,11 @@ function goHistoria(){
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
                     }).delay(6000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-historia').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
+
                     //obtiene el grid();
                     var dbhistoria = {
 
@@ -1004,6 +1041,10 @@ function goEquipo(){
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
                     }).delay(6000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-equipo').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     //obtiene el grid();
                     var dbequipo = {
 
@@ -1091,6 +1132,10 @@ function goRiesgos(){
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
                     }).delay(6000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-riesgos').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     //obtiene el grid();
                     var dbriesgos = {
 
@@ -1178,6 +1223,10 @@ function goPlan(){
                     $('#alerttopright').slideDown('fast', function(){
                         $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
                     }).delay(6000).slideUp('fast');
+                    // grafica de avance
+                    $('#graf-plan').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
+
                     //obtiene el grid();
                     var dbplan = {
 
@@ -1437,6 +1486,27 @@ function getnall(){
                             width: 80
                         }]
                     });
+
+                    // avances - grafica
+                    $('#graf-generales').html(data.graf_generales);
+                    $('#graf-fiscales').html(data.graf_fiscales);
+                    $('#graf-logo').html(data.graf_logo);
+                    $('#graf-idproyecto').html(data.graf_idproyecto);
+                    $('#graf-inversion').html(data.graf_inversion);
+                    $('#graf-bancarios').html(data.graf_bancarios);
+                    $('#graf-producto').html(data.graf_producto);
+                    $('#graf-idea').html(data.graf_idea);
+                    $('#graf-competencia').html(data.graf_competencia);
+                    $('#graf-mercado').html(data.graf_mercado);
+                    $('#graf-negocio').html(data.graf_negocio);
+                    $('#graf-ingresos').html(data.graf_fuente);
+                    $('#graf-costos').html(data.graf_costos);
+                    $('#graf-historia').html(data.graf_historia);
+                    $('#graf-equipo').html(data.graf_equipo);
+                    $('#graf-riesgos').html(data.graf_riesgos);
+                    $('#graf-plan').html(data.graf_plan);
+                    //$('#graf-costos').html(data.grafica);
+                    $('#graf_total').html(data.graf_total);
 
 
                 } else {
