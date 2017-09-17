@@ -21,6 +21,46 @@ $datosFiscales = $miProyecto->get_datosfiscales($DBcon, $idProyecto);
 $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
 
 
+// obtengo catalogos
+// pinto los paises
+require_once(C_P_CLASES."utils/html.functions.php"); // HTML functions
+$myHTML = new HTML("",$DBcon);
+// Paises
+$myHTML->set_newInputName('cf_pais');
+$myHTML->fill_query('tpaises','','','nombre','nombre');
+$selectPaises = $myHTML->set_selectBox($datosFiscales->cpais,0,'form-control form-control-line');
+
+// estado
+$myHTML->set_newInputName('cf_estado');
+$myHTML->fill_query('estados','','','nombre','abrev');
+$selectEstados = $myHTML->set_selectBox($datosFiscales->cestado,0,'form-control form-control-line');
+
+// Industria (Sector)
+$myHTML->set_newInputName('cg_sector');
+$myHTML->fill_query('tsector','','','cnombre','cnombre');
+$selectSector = $myHTML->set_selectBox($datosProy->csector1,0,'form-control form-control-line');
+
+// StartUp (Sector)
+$myHTML->set_newInputName('ci_startup');
+$myHTML->fill_query('trespuestas','','','cnombre','cabrev');
+$selectStartup = $myHTML->set_selectBox($datosProy->cstartup,0,'form-control form-control-line');
+
+// tipo producto (ctipo)
+$myHTML->set_newInputName('cid_tipo');
+$myHTML->fill_query('tproductos','','','cnombre','cnombre');
+$selectTipoproducto = $myHTML->set_selectBox($datosProy->ctipo,0,'form-control form-control-line');
+
+// tipo producto (ctipo)
+$myHTML->set_newInputName('cid_tipo');
+$myHTML->fill_query('tproductos','','','cnombre','cnombre');
+$selectTipoproducto = $myHTML->set_selectBox($datosProy->ctipo,0,'form-control form-control-line');
+
+// Diferenciador
+$myHTML->set_newInputName('cc_diferenciador');
+$myHTML->fill_query('tdiferenciador','','','cnombre','cnombre');
+$selectDif = $myHTML->set_selectBox("",0,'form-control form-control-line');
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +74,7 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
     <link href="../plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="../plugins/bower_components/jsgrid/dist/jsgrid.min.css" />
     <link type="text/css" rel="stylesheet" href="../plugins/bower_components/jsgrid/dist/jsgrid-theme.min.css" />
+    <link href="../plugins/bower_components/css-chart/css-chart.css" rel="stylesheet">
 
 </head>
 <body class="fix-sidebar fix-header">
@@ -121,12 +162,7 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label>Industria</label>
-                                            <select class="form-control" id="cg_sector" name="cg_sector">
-                                                <option>--Tipo de Industria--</option>
-                                                <option>A</option>
-                                                <option>B</option>
-                                                <option>C</option>
-                                            </select>
+                                            <?php echo $selectSector; ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -226,23 +262,13 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label>País</label>
-                                            <select class="form-control" id="cf_pais" name="cf_pais">
-                                                <option>--Selecciona el País--</option>
-                                                <option>A</option>
-                                                <option>B</option>
-                                                <option>C</option>
-                                            </select>
+                                            <?php echo $selectPaises; ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label>Estado</label>
-                                            <select class="form-control" id="cf_estado" name="cf_estado">
-                                                <option>--Seleccione Estado--</option>
-                                                <option>A</option>
-                                                <option>B</option>
-                                                <option>C</option>
-                                            </select>
+                                            <?php echo $selectEstados; ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -307,11 +333,16 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="white-box">
                         <h3 class="box-title m-b-0">Logo del Proyecto</h3>
                         <div  id="graf-logo">
-                            <p> <strong>Avance:</strong> <span class="pull-right text-muted">40% Complete</span> </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                            </div>
+
                         </div>
+                        <span class="mytooltip tooltip-effect-2">
+                            <span class="tooltip-item"> - Ver -</span>
+                            <span class="tooltip-content clearfix">
+                                <img src="documents/<?php echo $datosProy->clogo; ?>" />
+                                <span class="tooltip-text">Logo (<a href="documents/<?php echo $datosProy->clogo; ?>" target="_blank"> descargar </a> )</span>
+                            </span>
+                        </span>
+
                         <form action="documents/ps_logoproyecto.php" class="dropzone" id="dropzoneLogo">
                             <div class="fallback">
                                 <input name="file" type="file" multiple />
@@ -323,11 +354,17 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="white-box">
                         <h3 class="box-title m-b-0">Credencial / ID digitalizada</h3>
                         <div  id="graf-idproyecto">
-                            <p> <strong>Avance:</strong> <span class="pull-right text-muted">40% Complete</span> </p>
-                            <div class="progress progress-striped active">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                            </div>
+
                         </div>
+
+                        <span class="mytooltip tooltip-effect-2">
+                            <span class="tooltip-item"> - Ver -</span>
+                            <span class="tooltip-content clearfix">
+                                <img src="documents/<?php echo $datosFiscales->cscanid; ?>" />
+                                <span class="tooltip-text">Identificación (<a href="documents/<?php echo $datosFiscales->cscanid; ?>" target="_blank"> descargar </a> )</span>
+                            </span>
+                        </span>
+
                         <form action="documents/ps_idproyecto.php" class="dropzone" id="dropzoneid">
                             <div class="fallback">
                                 <input name="file" type="file" multiple />
@@ -379,17 +416,14 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                                                 <div class="form-group">
                                                     <label class="control-label col-md-3">¿Startup?</label>
                                                     <div class="col-md-9">
-                                                        <select class="form-control" id="ci_startup" name="ci_startup">
-                                                            <option value="1">SI</option>
-                                                            <option value="0">NO</option>
-                                                        </select>
+                                                        <?php echo $selectStartup; ?>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-3">Duración</label>
+                                                    <label class="control-label col-md-3">Duración (meses)</label>
                                                     <div class="col-md-9">
                                                         <input type="text" class="form-control" placeholder="dias" id="ci_dias" name="ci_dias"  value="<?php echo $datosProy->cmeses; ?>">
                                                     </div>
@@ -492,6 +526,13 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                                     <div class="col-md-6">
                                         <div class="white-box">
                                             <h3 class="box-title m-b-0">Recibo Banco</h3>
+                                            <span class="mytooltip tooltip-effect-2">
+                                                <span class="tooltip-item"> - Ver -</span>
+                                                <span class="tooltip-content clearfix">
+                                                    <img src="documents/<?php echo $datosBancarios->cp_recibo; ?>" />
+                                                    <span class="tooltip-text">Recibo (<a href="documents/<?php echo $datosBancarios->cp_recibo; ?>" target="_blank"> descargar </a> )</span>
+                                                </span>
+                                            </span>
                                             <form action="documents/ps_bankproyecto.php" class="dropzone" id="dropzoneMyBank">
                                                 <div class="fallback">
                                                     <input name="file" type="file" multiple />
@@ -514,11 +555,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Producto</h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">40% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div  id="graf-producto">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -533,12 +571,7 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <label>Tipo</label>
-                                                <select class="form-control" id="cid_tipo" name="cid_tipo">
-                                                    <option>--Tipo de Producto--</option>
-                                                    <option>A</option>
-                                                    <option>B</option>
-                                                    <option>C</option>
-                                                </select>
+                                                <?php echo $selectTipoproducto; ?>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -566,11 +599,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Idea</h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">60% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div id="graf-idea">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -632,11 +662,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                                     <div class="col-md-12">
                                         <div class="white-box">
                                             <h3 class="box-title m-b-0">Showcase</h3>
-                                            <div>
-                                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">60% Complete</span> </p>
-                                                <div class="progress progress-striped active">
-                                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                                </div>
+                                            <div  id="graf-galeria">
+
                                             </div>
                                             <form action="documents/ps_galeriaproyecto.php" class="dropzone" id="dropzoneMyGaleria">
                                                 <div class="fallback">
@@ -661,11 +688,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Competencia</h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">40% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div  id="graf-competencia">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -680,12 +704,7 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <label>Diferenciador</label>
-                                                <select class="form-control" id="cc_diferenciador" name="cc_diferenciador">
-                                                    <option>-- seleccionar --</option>
-                                                    <option>A</option>
-                                                    <option>B</option>
-                                                    <option>C</option>
-                                                </select>
+                                                <?php echo $selectDif; ?>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -707,11 +726,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Mercado Objetivo</h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">60% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div id="graf-mercado">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -798,6 +814,9 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                 <div class="panel panel-info">
                     <div class="panel-heading" id="divDatosNegocio"> <i data-icon="/" class="fa fa-bank"></i> Negocio</div>
                     <div class="panel-body">
+                        <div id="graf-negocio">
+
+                        </div>
                         <form id="formNegocio" action="project_edit.php" class="form-horizontal form-bordered">
                             <div class="form-body">
                                 <div class="form-group">
@@ -886,11 +905,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Fuente de Ingresos</h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">40% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div  id="graf-ingresos">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -930,11 +946,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Distribución de Costos </h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">60% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div id="graf-costos">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -995,11 +1008,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Acontecimientos </h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">60% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div id="graf-historia">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -1027,11 +1037,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Equipo</h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">40% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div id="graf-equipo">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -1096,11 +1103,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Riesgos</h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">40% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div  id="graf-riesgos">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -1140,11 +1144,8 @@ $datosBancarios = $miProyecto->get_datosbancarios($DBcon, $idProyecto);
                     <div class="col-md-6">
                         <div class="white-box">
                             <h3 class="box-title m-b-0">Plan Asignacion </h3>
-                            <div>
-                                <p> <strong>Avance:</strong> <span class="pull-right text-muted">60% Complete</span> </p>
-                                <div class="progress progress-striped active">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"> <span class="sr-only">40% Complete (success)</span> </div>
-                                </div>
+                            <div id="graf-plan">
+
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">

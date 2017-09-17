@@ -10,10 +10,11 @@
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
         <div class="user-profile">
             <div class="dropdown user-pro-body">
-                <div><img src="../plugins/images/users/varun.jpg" alt="user-img" class="img-circle"></div>
-                <a href="#" class="dropdown-toggle u-dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Y_PROJECT_NAME </a>
-
+                <div id="graf_total">
+                </div>
+                <button class="btn btn-block btn-rounded btn-success" aria-expanded="false">listo</button>
             </div>
+
         </div>
         <ul class="nav" id="side-menu">
             <li class="sidebar-search hidden-sm hidden-md hidden-lg">
