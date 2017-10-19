@@ -56,27 +56,27 @@ if ($_POST) {
     $contestadas = 11-$vacios;
 
     $tabla = "tfiscales";
-    $fields = " cnombre, creplegalcurp, creplegaltel ";
+    $fields = " creplegal, creplegalcurp, creplegaltel ";
     $where = " WHERE idproyecto = '".$idProyecto."'";
 
     $vacios2 = $myIns->get_rowsnotempty($DBcon, $tabla,$fields,$where);
     $contestadas = $contestadas - $vacios2;
 
     $porcentajeAvance = $myIns->set_porcentajeAvance($cantidadPreguntas, $contestadas);
-
+    //error_log("Porcentaje: ".$porcentajeAvance."  Preguntas: ".$cantidadPreguntas." Contestadas: ".$contestadas." Rep Legal: ".$replegal, 0);
     $grafica = $myIns->set_displayAvanceDiv($porcentajeAvance);
 
     $res['grafica'] = $grafica;
 
     // actualizo los datos totales y actualizo la grafica
     /// Obtiene el AVANCE TOTAL ACTUAL
-    $avance = $myIns->get_datosavance($DBcon, $idProyecto);
     if($porcentajeAvance == 100)
     {
-        $avance = $avance+1;
-        $myIns->upd_avance($DBcon,$idProyecto,$avance);
+        //$avance = $avance+1;
+        $myIns->upd_tavance($DBcon,$idProyecto,"cs1", 1);
     }
-    $graficaTotal = $myIns->set_displayAvanceTotalDiv(18,$avance);
+    $avance = $myIns->get_totaldatostavance($DBcon, $idProyecto);
+    $graficaTotal = $myIns->set_displayAvanceTotalDiv(19,$avance);
     $res['graf_total'] = $graficaTotal;
 
 

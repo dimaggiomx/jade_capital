@@ -110,6 +110,15 @@ $(document).ready(function() {
         }
     );
 
+
+    //proyecto listo
+    $('#formListo').submit(function()
+        {
+            goListo();
+            return false;
+        }
+    );
+
 });
 
 
@@ -146,9 +155,9 @@ function goGenerales(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 } else {
                     $(".preloader").fadeOut(); // desvanece preloader
                     // boton - texto - ERROR
@@ -158,9 +167,9 @@ function goGenerales(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -205,9 +214,9 @@ function goFiscales(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 } else {
                     $(".preloader").fadeOut(); // desvanece preloader
                     // boton - texto - ERROR
@@ -218,9 +227,9 @@ function goFiscales(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -266,9 +275,9 @@ function goInversion(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 } else {
                     $(".preloader").fadeOut(); // desvanece preloader
                     // boton - texto - ERROR
@@ -279,9 +288,9 @@ function goInversion(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -326,9 +335,9 @@ function goBancarios(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //   $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 } else {
                     $(".preloader").fadeOut(); // desvanece preloader
                     // boton - texto - ERROR
@@ -339,9 +348,9 @@ function goBancarios(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //   $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -386,9 +395,9 @@ function goIdea(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 } else {
                     $(".preloader").fadeOut(); // desvanece preloader
                     // boton - texto - ERROR
@@ -399,9 +408,9 @@ function goIdea(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -446,9 +455,9 @@ function goProducto(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 } else {
                     $(".preloader").fadeOut(); // desvanece preloader
                     // boton - texto - ERROR
@@ -459,9 +468,9 @@ function goProducto(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -506,9 +515,9 @@ function goCompetencia(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
 
                     // datos del grid
                     var db2 = {
@@ -555,9 +564,9 @@ function goCompetencia(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -602,9 +611,9 @@ function goMercado(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                     //getCompetencia();
                     var dbmercado = {
 
@@ -662,9 +671,9 @@ function goMercado(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -709,9 +718,9 @@ function goNegocio(){
                     $('#graf_total').html(data.graf_total);
 
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 } else {
                     $(".preloader").fadeOut(); // desvanece preloader
                     // boton - texto - ERROR
@@ -722,9 +731,9 @@ function goNegocio(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -765,9 +774,9 @@ function goFuente(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                     // grafica de avance
                     $('#graf-ingresos').html(data.grafica);
                     $('#graf_total').html(data.graf_total);
@@ -815,9 +824,9 @@ function goFuente(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -858,9 +867,9 @@ function goCostos(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                     // grafica de avance
                     $('#graf-costos').html(data.grafica);
                     $('#graf_total').html(data.graf_total);
@@ -907,9 +916,9 @@ function goCostos(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -950,9 +959,9 @@ function goHistoria(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                     // grafica de avance
                     $('#graf-historia').html(data.grafica);
                     $('#graf_total').html(data.graf_total);
@@ -995,9 +1004,9 @@ function goHistoria(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -1038,9 +1047,9 @@ function goEquipo(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                     // grafica de avance
                     $('#graf-equipo').html(data.grafica);
                     $('#graf_total').html(data.graf_total);
@@ -1086,9 +1095,9 @@ function goEquipo(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -1129,9 +1138,9 @@ function goRiesgos(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                     // grafica de avance
                     $('#graf-riesgos').html(data.grafica);
                     $('#graf_total').html(data.graf_total);
@@ -1177,9 +1186,9 @@ function goRiesgos(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                 }
 
             },3000);
@@ -1220,9 +1229,9 @@ function goPlan(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
                     // grafica de avance
                     $('#graf-plan').html(data.grafica);
                     $('#graf_total').html(data.graf_total);
@@ -1268,9 +1277,60 @@ function goPlan(){
                     $('#r_resultErrDiv').slideDown('fast', function(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
+                }
+
+            },3000);
+
+        })
+        .fail(function(){
+            // $("#loginform").trigger('reset');
+            alert('An unknown error occoured, Please try again Later...');
+        });
+}
+
+function goListo(){
+
+    $.ajax({
+        url: 'tproyectos/ps_listo.php',
+        type: 'POST',
+        encoding:"UTF-8",
+        data: $('#formListo').serialize(),
+        dataType: 'json'
+    })
+
+        .done(function(data){
+            // cargar - loading
+            $(".preloader").fadeIn();
+            // boton - msg
+            $('#btn-sendproject').html('<img src="ajax-loader.gif" /> &nbsp; Enviando...').prop('disabled', true);
+
+            setTimeout(function(){
+
+                if ( data.status==='success' ) {
+                    $(".preloader").fadeOut();  // desvanece preloader
+                    //$("#formGenerales").trigger('reset'); // resetea campos
+                    // boton - texto - OK
+                    $('#btn-sendproject').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Proyecto enviado...').prop('disabled', false);
+                    // mensaje OK
+                    // para el msg abajo
+                    $('#r_resultOkDiv').slideDown('fast', function(){
+                        $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
+                    }).delay(3000).slideUp('fast');
+                    // redireccionar a listado de proyectos
+                    setTimeout(function(){window.location.href=data.URL} , 3500);
+
+                } else {
+                    $(".preloader").fadeOut(); // desvanece preloader
+                    // boton - texto - ERROR
+                    $('#btn-sendproject').html('<span class="glyphicon glyphicon-log-in"></span> &nbsp; Intente nuevamente...').prop('disabled', false);
+                    // mensaje ERROR
+                    // para el msg abajo
+                    $('#r_resultErrDiv').slideDown('fast', function(){
+                        $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
+                    }).delay(3000).slideUp('fast');
                 }
 
             },3000);
@@ -1521,3 +1581,4 @@ function getnall(){
         });
 
 }
+

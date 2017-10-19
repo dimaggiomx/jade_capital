@@ -7,7 +7,7 @@
  */
 ?>
 
-<div class="top-left-part"  style="background-color: #A0AEC4;">
+<div class="top-left-part" style="background-color: #A0AEC4;">
     <a class="logo" href="desktop.php"><b>
             <img src="../plugins/images/eliteadmin-logo.png" alt="home" class="dark-logo" />
             <img src="../plugins/images/eliteadmin-logo-dark.png" alt="home" class="light-logo" /></b>

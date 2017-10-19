@@ -44,11 +44,11 @@ function submitForm(){
                         $('#r_resultOkDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#r_resultDebDiv').slideDown('fast', function(){
-                        $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
-                    });
+                    //$('#r_resultDebDiv').slideDown('fast', function(){
+                    //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //});
                     // redireccionar a login
-                    setTimeout(function(){window.location.href=data.URL} , 5500);
+                    setTimeout(function(){window.location.href=data.URL} , 3500);
 
                 } else {
                     $(".preloader").fadeOut(); // desvanece preloader
@@ -60,9 +60,9 @@ function submitForm(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#r_resultDebDiv').slideDown('fast', function(){
-                        $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
-                    });
+                    //$('#r_resultDebDiv').slideDown('fast', function(){
+                    //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //});
                 }
 
             },3000);

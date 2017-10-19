@@ -49,7 +49,7 @@ $where = " WHERE id = '".$idProyecto."'";
 $vacios = $myIns->get_rowsnotempty($DBcon, $tabla,$fields,$where);
 $contestadas = $cantidadPreguntas-$vacios;
 $tabla = "tfiscales";
-$fields = " cnombre, creplegalcurp, creplegaltel ";
+$fields = " creplegal, creplegalcurp, creplegaltel ";
 $where = " WHERE idproyecto = '".$idProyecto."'";
 $vacios2 = $myIns->get_rowsnotempty($DBcon, $tabla,$fields,$where);
 $contestadas = $contestadas - $vacios2;
@@ -76,7 +76,7 @@ $cantidadPreguntas = 1;
 $contestadas = 0;
 $tabla = "tproyectos";
 $fields = " clogo ";
-$where = " WHERE id = '".$idProyecto."'";
+$where = " WHERE id = '".$idProyecto."' AND clogo != '../plugins/images/default_img.jpg'";
 $vacios = $myIns->get_rowsnotempty($DBcon, $tabla,$fields,$where);
 $contestadas = $cantidadPreguntas-$vacios;
 $porcentajeAvance = $myIns->set_porcentajeAvance($cantidadPreguntas, $contestadas);
@@ -89,7 +89,7 @@ $cantidadPreguntas = 1;
 $contestadas = 0;
 $tabla = "tfiscales";
 $fields = " cscanid ";
-$where = " WHERE idproyecto = '".$idProyecto."'";
+$where = " WHERE idproyecto = '".$idProyecto."' AND cscanid != '../plugins/images/default_img.jpg'";
 $vacios = $myIns->get_rowsnotempty($DBcon, $tabla,$fields,$where);
 $contestadas = $cantidadPreguntas-$vacios;
 $porcentajeAvance = $myIns->set_porcentajeAvance($cantidadPreguntas, $contestadas);
@@ -235,8 +235,8 @@ $res['graf_plan'] = $grafica;
 
 
 /// Obtiene el AVANCE TOTAL ACTUAL
-$avance = $myIns->get_datosavance($DBcon, $idProyecto);
-$graficaTotal = $myIns->set_displayAvanceTotalDiv(18,$avance);
+$avance = $myIns->get_totaldatostavance($DBcon, $idProyecto);
+$graficaTotal = $myIns->set_displayAvanceTotalDiv(19,$avance);
 $res['graf_total'] = $graficaTotal;
 
 //error_log($graficaTotal, 0);

@@ -46,9 +46,9 @@ function submitForm(){
                     // redireccionar a login
                     //setTimeout(function(){window.location.href=data.URL} , 5500);
                     // para el debug
-                    $('#r_resultDebDiv').slideDown('fast', function(){
-                        $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
-                    });
+                    //$('#r_resultDebDiv').slideDown('fast', function(){
+                    //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //});
                     // alerta de confirmacion
                     //Success Message
                     swal("Felicidades!", "Ahora solo resta ingresar a tu correo y confirmar tu usuario. Gracias.", "success");
@@ -63,9 +63,9 @@ function submitForm(){
                         $('#r_resultErrDiv').html('<i class="ti-user"></i> '+data.message+' <a href="#" class="closed">&times;</a> ');
                     }).delay(3000).slideUp('fast');
                     // para el debug
-                    $('#r_resultDebDiv').slideDown('fast', function(){
-                        $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
-                    });
+                    //$('#r_resultDebDiv').slideDown('fast', function(){
+                    //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //});
                 }
 
             },3000);

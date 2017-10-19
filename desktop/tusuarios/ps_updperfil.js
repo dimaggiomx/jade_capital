@@ -63,9 +63,9 @@ function submitPerfil(){
                     //$('#r_resultDebDiv').slideDown('fast', function(){
                     //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
                     //});
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                   // $('#alerttopright').slideDown('fast', function(){
+                   //     $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                   // }).delay(6000).slideUp('fast');
 
 
                     // alerta de confirmacion
@@ -85,9 +85,9 @@ function submitPerfil(){
                     //$('#r_resultDebDiv').slideDown('fast', function(){
                     //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
                     //});
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                   // $('#alerttopright').slideDown('fast', function(){
+                   //     $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                   // }).delay(6000).slideUp('fast');
 
                 }
 
@@ -135,9 +135,9 @@ function submitCuenta(){
                     //$('#r_resultDebDiv').slideDown('fast', function(){
                     //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
                     //});
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                   // $('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                   // }).delay(6000).slideUp('fast');
 
 
                     // alerta de confirmacion
@@ -157,9 +157,9 @@ function submitCuenta(){
                     //$('#r_resultDebDiv').slideDown('fast', function(){
                     //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
                     //});
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                   // $('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                   // }).delay(6000).slideUp('fast');
 
                 }
 
@@ -207,9 +207,9 @@ function submitPass(){
                     //$('#r_resultDebDiv').slideDown('fast', function(){
                     //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
                     //});
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
 
 
                     // alerta de confirmacion
@@ -229,9 +229,9 @@ function submitPass(){
                     //$('#r_resultDebDiv').slideDown('fast', function(){
                     //    $('#r_resultDebDiv').html('<i class="ti-user"></i> '+data.debug+' <a href="#" class="closed">&times;</a> ');
                     //});
-                    $('#alerttopright').slideDown('fast', function(){
-                        $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
-                    }).delay(6000).slideUp('fast');
+                    //$('#alerttopright').slideDown('fast', function(){
+                    //    $('#alerttopright').html(data.debug+' <a href="#" class="closed">&times;</a> ');
+                    //}).delay(6000).slideUp('fast');
 
                 }
 

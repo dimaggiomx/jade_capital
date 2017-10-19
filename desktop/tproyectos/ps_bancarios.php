@@ -34,7 +34,7 @@ if ($_POST) {
     $res = $myIns->upd_bancarios($DBcon, $idProyecto, $banco, $email, $clabe, $titular, $rfc);
 
     // verifico el porcentaje de avance
-    $cantidadPreguntas = 6;
+    $cantidadPreguntas = 5;
     $contestadas = 0;
     $tabla = "tp_bancario";
     $fields = " cp_nombre, cp_email, cp_clabe, cp_titular, cp_rfc, cp_recibo  ";
@@ -51,13 +51,13 @@ if ($_POST) {
 
     // actualizo los datos totales y actualizo la grafica
     /// Obtiene el AVANCE TOTAL ACTUAL
-    $avance = $myIns->get_datosavance($DBcon, $idProyecto);
     if($porcentajeAvance == 100)
     {
-        $avance = $avance+1;
-        $myIns->upd_avance($DBcon,$idProyecto,$avance);
+        //$avance = $avance+1;
+        $myIns->upd_tavance($DBcon,$idProyecto,"cs6", 1);
     }
-    $graficaTotal = $myIns->set_displayAvanceTotalDiv(18,$avance);
+    $avance = $myIns->get_totaldatostavance($DBcon, $idProyecto);
+    $graficaTotal = $myIns->set_displayAvanceTotalDiv(19,$avance);
     $res['graf_total'] = $graficaTotal;
 }
 

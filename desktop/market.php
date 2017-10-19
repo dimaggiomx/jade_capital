@@ -11,10 +11,12 @@ require_once('sescheck.php'); // para la sesion
 <html lang="en">
 <head>
     <?php include ('includes/iheader.php'); ?>
-    <title><?php echo C_P_TITLE; ?> - Desktop</title>
+    <title><?php echo C_P_TITLE; ?> - M A R K E T</title>
     <?php include ('includes/icss.php'); ?>
+    <!-- para las tablas -->
+    <link href="../plugins/bower_components/datatables/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body class="fix-sidebar fix-header">
+<body class="fix-sidebar fix-header"  onload="paginateMe(1)">
 <!-- Preloader -->
 <div class="preloader">
     <div class="cssload-speeding-wheel"></div>
@@ -32,15 +34,16 @@ require_once('sescheck.php'); // para la sesion
                 <li><a href="javascript:void(0)" class="open-close hidden-xs waves-effect waves-light">
                         <i class="icon-arrow-left-circle ti-menu"></i></a></li>
                 <li>
-                    <form role="search" class="app-search hidden-xs">
+                    <form role="search" class="app-search hidden-xs" name="searchMe" id="searchMe">
                         <input type="text" placeholder="Search..." class="form-control">
+                        <input type="hidden" placeholder="Search..." class="form-control" name="page" id="page">
                         <a href=""><i class="fa fa-search"></i></a>
                     </form>
                 </li>
             </ul>
             <!-- END SEARCH Position -->
             <ul class="nav navbar-top-links navbar-right pull-right">
-                <?php include ('includes/imsg.php'); ?>
+                <?php //include ('includes/imsg.php'); ?>
                 <?php include ('includes/imenu.php'); ?>
             </ul>
         </div>
@@ -67,21 +70,12 @@ require_once('sescheck.php'); // para la sesion
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="white-box">
-                        <h3 class="box-title">Blank Starter page</h3>
-                        <p><?php
-                            echo $_SESSION["ses_cuser"]; echo '<br/>';
-                            echo $_SESSION["ses_ctipo"]; echo '<br/>';
-                            echo $_SESSION["ses_cname"]; echo '<br/>';
-                            echo $_SESSION["ses_dtipo"]; echo '<br/>';
-                            echo $_SESSION["ses_cphoto1"]; echo '<br/>';
-                            ?>
-                        </p>
-                    </div>
-                </div>
+            <!-- .row -->
+            <div class="table-responsive" id="resDiv" name="resDiv">
             </div>
+
+            <!-- end Row -->
+
             <!-- .right-sidebar -->
             <?php include ('rightnav.php'); ?>
             <!-- /.right-sidebar -->
@@ -93,6 +87,10 @@ require_once('sescheck.php'); // para la sesion
 </div>
 <!-- /#wrapper -->
 <?php include ('includes/iscripts.php'); ?>
+<!-- Custom Theme JavaScript -->
+<script src="market/ps_market.js"></script>
+<!-- para las tablas -->
+<script src="../plugins/bower_components/datatables/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 
 </script>

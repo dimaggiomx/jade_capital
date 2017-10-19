@@ -51,7 +51,8 @@ class A_PRO
 
             $responseFiscales = $this->ins_datosFiscales($DBcon, $lastId);
             $responseBancarios = $this->ins_datosBancarios($DBcon, $lastId);
-            $responseAvance = $this->ins_datosAvance($DBcon, $lastId);
+            $responseAvance = $this->ins_datosAvance($DBcon, $lastId); //para avance de seccion
+            $responseAvance = $this->ins_avance($DBcon, $lastId);  //para avance de llenado de proyecto
 
             $response['status'] = 'success';
             $response['message'] = 'Registro exitoso, Gracias!';
@@ -104,6 +105,32 @@ class A_PRO
     private function ins_datosAvance($DBcon, $idProyecto)
     {
         $query = "INSERT INTO  tp_avance
+                    (idproyecto) 
+					VALUES
+					('".$idProyecto."')";
+
+        $stmt = $DBcon->prepare($query);
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+
+            $response['status'] = 'success';
+            $response['message'] = 'Registro exitoso, Gracias!';
+            $response['debug'] = '-S-'.$query;
+
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo registrar, intente nuevamente más tarde';
+            $response['debug'] = '-E-'.$query;
+        }
+
+        return $response;
+    }
+
+
+    private function ins_avance($DBcon, $idProyecto)
+    {
+        $query = "INSERT INTO  tavances
                     (idproyecto) 
 					VALUES
 					('".$idProyecto."')";
@@ -581,6 +608,19 @@ class A_PRO
     }
 
     /***
+     * Obtains a user general data
+     */
+    function get_datossubasta($DBcon, $id)
+    {
+        $query= "SELECT * FROM tp_subasta WHERE idproyecto = '".$id."'";
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+        $obj = $stmt->fetchObject();
+        // regresa un solo registro
+        return $obj;
+    }
+
+    /***
      * Actualiza los datos generales
      */
     public function upd_generales($DBcon, $idProyecto, $nombre, $sector, $video, $www, $fb, $tw, $insta, $linkedin )
@@ -595,6 +635,64 @@ class A_PRO
                   cins  = '".$insta."',
                   clinkedin  = '".$linkedin."'
                  WHERE  id = '".$idProyecto."' 
+				 ";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Registro actualizado';
+            $response['debug'] = '-S-'.$query;
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo actualizar, favor de intentar nuevamente';
+            $response['debug'] = '-E-'.$query;
+        }
+
+
+        return $response;
+    }
+
+
+    /***
+     * Actualiza los datos generales
+     */
+    public function upd_statusproject($DBcon, $idProyecto, $status )
+    {
+        $query = "UPDATE ".$this->tableName." SET 
+                 cstatus  = '".$status."' 
+                 WHERE  id = '".$idProyecto."' 
+				 ";
+
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+
+        // check for successfull registration
+        if ( $stmt->execute() ) {
+            $response['status'] = 'success';
+            $response['message'] = 'Estatus actualizado';
+            $response['URL'] = 'desktop.php';
+        } else {
+            $response['status'] = 'error'; // could not register
+            $response['message'] = 'No se pudo actualizar, favor de intentar nuevamente';
+            //$response['debug'] = '-E-'.$query;
+        }
+
+
+        return $response;
+    }
+
+
+    /***
+     * Actualiza los datos generales
+     */
+    public function upd_tavance($DBcon, $idProyecto, $seccion, $valor )
+    {
+        $query = "UPDATE tavances SET 
+                 ".$seccion."  = '".$valor."'  
+                 WHERE  idproyecto = '".$idProyecto."' 
 				 ";
 
         $stmt = $DBcon->prepare($query);
@@ -684,7 +782,7 @@ class A_PRO
     }
 
     /***
-     * Actualiza los datos fiscales de rep legal
+     * para avance de seccion
      */
     public function upd_avance($DBcon, $idProyecto, $valor )
     {
@@ -712,7 +810,7 @@ class A_PRO
 
 
     /***
-     * Obtains avance
+     * Obtains avance de seccion
      */
     function get_datosavance($DBcon, $id)
     {
@@ -724,6 +822,41 @@ class A_PRO
         // regresa un solo registro
         return $obj->avance;
     }
+
+
+    /***
+     * Obtains avance
+     */
+    function get_datostavance($DBcon, $id, $seccion)
+    {
+        $query= "SELECT ".$seccion." FROM tavance WHERE idproyecto = '".$id."'";
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+        $obj = $stmt->fetchObject();
+
+        $arrAvance = array();
+        $arrAvance["seccion"] = $obj->$seccion;
+        $arrAvance["total"] = $obj->total;
+
+        // regresa un solo registro
+        return $arrAvance;
+    }
+
+
+    /***
+     * Obtains avance
+     */
+    function get_totaldatostavance($DBcon, $id)
+    {
+        $query= "SELECT  (cs1+cs2+cs3+cs4+cs5+cs6+cs7+cs8+cs9+cs10+cs11+cs12+cs13+cs14+cs15+cs16+cs17+cs18+cs19)TOT FROM tavances  WHERE idproyecto = '".$id."'";
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+        $obj = $stmt->fetchObject();
+
+        // regresa un solo registro
+        return $obj->TOT;
+    }
+
 
     /***
      * Actualiza los datos fiscales de rep legal
@@ -1004,6 +1137,9 @@ class A_PRO
         $query= "SELECT ".$fields." FROM ".$table." ".$where;
 
         $stmt =$DBcon->query($query);
+
+        //error_log($query,0);
+
         $obj = $stmt->fetchObject();
 
         for ($i=0; $i<$stmt->columnCount(); $i++) {
@@ -1081,6 +1217,224 @@ class A_PRO
         return $disp;
     }
 
+    public function get_listprojects($DBcon,$page,$noRowsDisplay,$where)
+    {
+        require_once(C_P_CLASES.'utils/paginator.php');
+        $now = date("Y-m-d H:i:s");
+
+        $query = "SELECT P.id, P.cname AS Nombre, P.cstatus AS paso FROM 
+                    tproyectos AS P 
+                     INNER JOIN tfiscales AS F
+                     ON P.id = F.idproyecto ";
+        $query.=$where;
+
+        //error_log($query,0);
+        $stmt = $DBcon->prepare($query);
+        $stmt->execute();
+        $total = $stmt->rowCount();
+
+        $num_rows = $total;
+
+        $a = new Paginator($page,$num_rows);
+
+
+        $a->set_Limit($noRowsDisplay);
+        $a->set_Links();
+        $limit1 = $a->getRange1();
+        $limit2 = $a->getRange2();
+        $query .= " LIMIT $limit1 , $limit2 ";
+
+        $stmt2 = $DBcon->prepare($query);
+
+        // guardo el resultado
+        $this->set_queryResult($stmt2);
+
+        //Paginador
+        if($a->getTotalPages()>1)
+        {
+            $paginatorLinks = $a->paintLinks('paginateMe',$a->getFirst(),$a->getLast(),$a->getLinkArr(),$a->getCurrent());
+            //guardo el string del paginador
+            $this->set_paginatorLinks($paginatorLinks);
+        }
+
+        return $query;
+    }
+
+    function disp_projectsPage()
+    {
+        $stmt = $this->get_queryResult();
+        $stmt->execute();
+        $total = $stmt->rowCount();
+
+        $disp = '';
+        $headerTable = '';  //nombres de columnas
+        $footerTable = '';  // nombres de columnas
+        $dataTable = '';    // info de la tabla
+        $acciones = '';     // para borrar editar
+        $displinks = '';    // pra mostrar las ligas de paginacion
+        $cont = 0;          // contador general
+
+        $encabezados = '<tr><th>Proyecto</th><th>En Creación</th><th>En Validación</th><th>Aprobado</th><th>En Subasta</th><th>Finalizado</th><th>Accion</th></tr>';
+        $headerTable .= '<thead>'.$encabezados.'</thead>';
+        $footerTable .= '<tfoot>'.$encabezados.'</tfoot>';
+
+
+        while ($row = $stmt->fetchObject()) {
+
+            $id = $row->id;
+            $estatus = $this->label_status($row->paso);
+            $proyecto = $row->Nombre;
+
+            $valores = $this->set_pasoStatus($row->paso);
+            $paso1 = $valores[1];
+            $paso2 = $valores[2];
+            $paso3 = $valores[3];
+            $paso4 = $valores[4];
+            $paso5 = $valores[5];
+            $paso6 = $valores[6];
+
+            $editar = '<a href="project_edit.php?id='.$id.'" data-toggle="tooltip" data-original-title="Edit"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>';
+            $detalle = '<a href="project_ficha.php?id='.$id.'" data-toggle="tooltip" data-original-title="Detalle"> <i class="fa fa-plus-square text-inverse m-r-10"></i> </a>';
+
+            if($row->paso == 1)
+            {
+                $detalle .= $editar;
+            }
+            $acciones = '<td>'.$detalle.'</td>';
+
+            $dataTable.='<tr><td>'.$proyecto.'</td><td>'.$paso1.'</td><td>'.$paso2.'</td><td>'.$paso4.'</td><td>'.$paso5.'</td><td>'.$paso6.'</td>'.$acciones.'</tr>';
+
+            $cont++;
+        }
+
+        $displinks.=$this->get_paginatorLinks();
+
+        $disp .= '<table id="tpendingdisp" class="table display">'.$headerTable.$footerTable.'<tbody>'.$dataTable.'</tbody></table>'.$displinks;
+
+        //error_log($disp,0);
+        return $disp;
+
+    }
+
+    private function set_pasoStatus($status)
+    {
+        $listo = '<div class="progress progress-lg"><div class="progress-bar progress-bar-success" style="width: 100%;" role="progressbar">100%</div></div>';
+        $onit = '<div class="progress progress-lg"><div class="progress-bar progress-bar-warning" style="width: 50%;" role="progressbar">En Proceso</div></div>';
+        $pendiente = '<div class="progress progress-lg"><div class="progress-bar progress-bar-danger" style="width: 100%;" role="progressbar">Pendiente</div></div>';
+        $comentarios = '<div class="progress progress-lg"><div class="progress-bar progress-bar-info" style="width: 50%;" role="progressbar">Regresado</div></div>';
+
+        $paso1 =''; $paso2= ''; $paso3=''; $paso4=''; $paso5=''; $paso6='';
+        //1 activo, 2=en validacion, 3=comentarios, 4=aprobado, 5=subasta, 6=finalizado
+        switch ($status) {
+            case 1:
+                $paso1=$onit;
+                $paso2=$pendiente;
+                $paso3=$pendiente;
+                $paso4=$pendiente;
+                $paso5=$pendiente;
+                $paso6=$pendiente;
+                break;
+
+            case 2:
+                $paso1=$listo;
+                $paso2=$onit;
+                $paso3=$pendiente;
+                $paso4=$pendiente;
+                $paso5=$pendiente;
+                $paso6=$pendiente;
+                break;
+
+            case 3:
+                $paso1=$comentarios;
+                $paso2=$pendiente;
+                $paso3=$pendiente;
+                $paso4=$pendiente;
+                $paso5=$pendiente;
+                $paso6=$pendiente;
+                break;
+
+            case 4:
+                $paso1=$listo;
+                $paso2=$listo;
+                $paso3=$listo;
+                $paso4=$listo;
+                $paso5=$pendiente;
+                $paso6=$pendiente;
+                break;
+
+            case 5:
+                $paso1=$listo;
+                $paso2=$listo;
+                $paso3=$listo;
+                $paso4=$listo;
+                $paso5=$onit;
+                $paso6=$pendiente;
+                break;
+
+            case 6:
+                $paso1=$listo;
+                $paso2=$listo;
+                $paso3=$listo;
+                $paso4=$listo;
+                $paso5=$listo;
+                $paso6=$listo;
+                break;
+
+            case 0:
+                $paso1=$pendiente;
+                $paso2=$pendiente;
+                $paso3=$pendiente;
+                $paso4=$pendiente;
+                $paso5=$pendiente;
+                $paso6=$pendiente;
+                break;
+
+            default:
+                return 'Sin estatus';
+        }
+
+        $arrValores = array();
+        $arrValores[1] = $paso1;
+        $arrValores[2] = $paso2;
+        $arrValores[3] = $paso3;
+        $arrValores[4] = $paso4;
+        $arrValores[5] = $paso5;
+        $arrValores[6] = $paso6;
+
+        return $arrValores;
+    }
+
+    public function label_status($status)
+    {
+        require_once(C_P_CLASES.'utils/string.functions.php');
+        $mySTR = new STRFN();
+
+        switch ($status) {
+            case 0:
+                return $mySTR->set_spanlabel('Inactivo','danger');
+                break;
+            case 1:
+                return $mySTR->set_spanlabel('En Proceso','warning');
+                break;
+            case 2:
+                return $mySTR->set_spanlabel('Validandose','primary');
+                break;
+            case 3:
+                return $mySTR->set_spanlabel('Rechazado','danger');
+                break;
+            case 4:
+                return $mySTR->set_spanlabel('Aprobado','info');
+                break;
+            case 5:
+                return $mySTR->set_spanlabel('Subasta','info');
+                break;
+            case 6:
+                return $mySTR->set_spanlabel('Finalizada','info');
+                break;
+            default:
+                return 'Sin estatus';
+        }
+    }
 
     /****
      * @param $porcentaje
@@ -1114,6 +1468,36 @@ class A_PRO
     function get_tmpguid()
     {
         return $this->tmpguid;
+    }
+
+    private function set_stmt($recordset)
+    {
+        $this->stmt = $recordset;
+    }
+
+    public function get_stmt()
+    {
+        return $this->stmt;
+    }
+
+    function set_paginatorLinks($string)
+    {
+        $this->paginatorLinks = $string;
+    }
+
+    function get_paginatorLinks()
+    {
+        return $this->paginatorLinks;
+    }
+
+    function set_queryResult($query)
+    {
+        $this->queryResult = $query;
+    }
+
+    function get_queryResult()
+    {
+        return $this->queryResult;
     }
 
 

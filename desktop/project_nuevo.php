@@ -15,6 +15,12 @@ $myHTML->fill_query('estados','','','nombre','abrev');
 
 $selectEstados = $myHTML->set_selectBox("",0,'form-control');
 
+// Industria (Sector)
+$myHTML->set_newInputName('c_sector');
+$myHTML->fill_query('tsector','','','cnombre','cnombre');
+$selectSector = $myHTML->set_selectBox("",0,'form-control form-control-line');
+
+
 
 ?>
 <!DOCTYPE html>
@@ -75,7 +81,7 @@ $selectEstados = $myHTML->set_selectBox("",0,'form-control');
     </nav>
     <!-- End Top Navigation -->
     <!-- Left navbar-header -->
-
+    <?php include ('leftnav.php'); ?>
     <!-- Left navbar-header end -->
     <!-- Page Content -->
     <div id="page-wrapper">
@@ -113,17 +119,12 @@ $selectEstados = $myHTML->set_selectBox("",0,'form-control');
                                 <div class="form-group">
                                     <div class="input-group">
                                         <label>Industria</label>
-                                        <select class="form-control" id="c_sector" name="c_sector">
-                                            <option>--Tipo de Industria--</option>
-                                            <option>A</option>
-                                            <option>B</option>
-                                            <option>C</option>
-                                        </select>
+                                        <?php echo $selectSector; ?>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <label>Industria</label>
+                                        <label>Estado</label>
                                         <?php echo $selectEstados; ?>
                                     </div>
                                 </div>

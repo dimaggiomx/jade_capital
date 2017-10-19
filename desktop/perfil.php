@@ -97,9 +97,9 @@ $selectPaises = $myHTML->set_selectBox($obj->cnation,0,'form-control form-contro
             <div class="row">
                 <div class="col-md-4 col-xs-12">
                     <div class="white-box">
-                        <div class="user-bg"> <img width="100%" alt="user" src="<?php echo $obj->cphoto2; ?>">
+                        <div class="user-bg"> <img width="100%" alt="user" src="../<?php echo $obj->cphoto2; ?>">
                             <div class="overlay-box">
-                                <div class="user-content"> <a href="javascript:void(0)"><img src="<?php echo $obj->cphoto1; ?>" class="thumb-lg img-circle" alt="img"></a>
+                                <div class="user-content"> <a href="javascript:void(0)"><img src="../<?php echo $obj->cphoto1; ?>" class="thumb-lg img-circle" alt="img"></a>
                                     <h4 class="text-white"><?php echo $obj->cname; ?></h4>
                                     <h5 class="text-white"><?php echo $obj->cuser; ?></h5>
                                 </div>

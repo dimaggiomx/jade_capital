@@ -6,13 +6,15 @@
  * Time: 14:32
  */
 ?>
-<div class="navbar-default sidebar" role="navigation">
+<div class="navbar-default sidebar" role="navigation"  style="background-color: #EDF1F5; ">
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
         <div class="user-profile">
             <div class="dropdown user-pro-body">
                 <div id="graf_total">
                 </div>
-                <button class="btn btn-block btn-rounded btn-success" aria-expanded="false">listo</button>
+                <form id="formListo" action="project_edit.php">
+                    <button class="btn btn-block btn-rounded btn-success" aria-expanded="false" type="submit" id="btn-sendproject">listo</button>
+                </form>
             </div>
 
         </div>

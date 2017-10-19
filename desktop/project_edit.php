@@ -92,7 +92,7 @@ $selectDif = $myHTML->set_selectBox("",0,'form-control form-control-line');
         <b>John Doe</b> sent you a message.</div>
     <!-- END  msg -->
     <!-- Top Navigation -->
-    <nav class="navbar navbar-default navbar-static-top m-b-0">
+    <nav class="navbar navbar-default navbar-static-top m-b-0" >
         <div class="navbar-header">
             <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse">
                 <i class="ti-menu"></i>
@@ -133,8 +133,9 @@ $selectDif = $myHTML->set_selectBox("",0,'form-control form-control-line');
                 </div>
                 <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                     <ol class="breadcrumb">
-                        <li><a href="#">Dashboard</a></li>
-                        <li class="active">Starter Page</li>
+                        <li><a href="#">Editar</a></li>
+                        <li class="active">Resumen</li>
+                        <li class="active">Ficha</li>
                     </ol>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -338,8 +339,8 @@ $selectDif = $myHTML->set_selectBox("",0,'form-control form-control-line');
                         <span class="mytooltip tooltip-effect-2">
                             <span class="tooltip-item"> - Ver -</span>
                             <span class="tooltip-content clearfix">
-                                <img src="documents/<?php echo $datosProy->clogo; ?>" />
-                                <span class="tooltip-text">Logo (<a href="documents/<?php echo $datosProy->clogo; ?>" target="_blank"> descargar </a> )</span>
+                                <img src="../<?php echo $datosProy->clogo; ?>" />
+                                <span class="tooltip-text">Logo (<a href="../<?php echo $datosProy->clogo; ?>" target="_blank"> descargar </a> )</span>
                             </span>
                         </span>
 
@@ -360,8 +361,8 @@ $selectDif = $myHTML->set_selectBox("",0,'form-control form-control-line');
                         <span class="mytooltip tooltip-effect-2">
                             <span class="tooltip-item"> - Ver -</span>
                             <span class="tooltip-content clearfix">
-                                <img src="documents/<?php echo $datosFiscales->cscanid; ?>" />
-                                <span class="tooltip-text">Identificación (<a href="documents/<?php echo $datosFiscales->cscanid; ?>" target="_blank"> descargar </a> )</span>
+                                <img src="../<?php echo $datosFiscales->cscanid; ?>" />
+                                <span class="tooltip-text">Identificación (<a href="../<?php echo $datosFiscales->cscanid; ?>" target="_blank"> descargar </a> )</span>
                             </span>
                         </span>
 
@@ -529,8 +530,8 @@ $selectDif = $myHTML->set_selectBox("",0,'form-control form-control-line');
                                             <span class="mytooltip tooltip-effect-2">
                                                 <span class="tooltip-item"> - Ver -</span>
                                                 <span class="tooltip-content clearfix">
-                                                    <img src="documents/<?php echo $datosBancarios->cp_recibo; ?>" />
-                                                    <span class="tooltip-text">Recibo (<a href="documents/<?php echo $datosBancarios->cp_recibo; ?>" target="_blank"> descargar </a> )</span>
+                                                    <img src="../<?php echo $datosBancarios->cp_recibo; ?>" />
+                                                    <span class="tooltip-text">Recibo (<a href="../<?php echo $datosBancarios->cp_recibo; ?>" target="_blank"> descargar </a> )</span>
                                                 </span>
                                             </span>
                                             <form action="documents/ps_bankproyecto.php" class="dropzone" id="dropzoneMyBank">

@@ -12,6 +12,24 @@ CLASS STRFN
 
     }
 
+    public function set_spanlabel($value, $color)
+    {
+        $open = '<span class="label label-'.$color.'">';
+        $close = '</span>';
+
+        return $open.$value.$close;
+    }
+
+
+    public function set_link($value, $color)
+    {
+        $open = '<span class="label label-'.$color.'">';
+        $close = '</span>';
+
+        return $open.$value.$close;
+    }
+
+
 
     /***
      * Agrega un elemento al row del titulo a pintar
@@ -36,15 +54,15 @@ CLASS STRFN
         $openTD.='>';
 
         if($otherClass == "")
-            //$openTD.='<div id="tituloTablaLeft">&nbsp;</div><label>'.$dato.'</label><div id="tituloTablaRight">&nbsp;</div>'.$endTd; 
-			//<a class="a_demo_four" href="#">Click me!</a>
-			$openTD.='<a class="a_demo_one" href="#">'.$dato.'</a>'.$endTd;
+            //$openTD.='<div id="tituloTablaLeft">&nbsp;</div><label>'.$dato.'</label><div id="tituloTablaRight">&nbsp;</div>'.$endTd;
+            //<a class="a_demo_four" href="#">Click me!</a>
+            $openTD.='<a class="a_demo_one" href="#">'.$dato.'</a>'.$endTd;
         else
             $openTD.='<span class="'.$otherClass.'">'.$dato.'</span>'.$endTd;
         return $openTD;
     }
 
-     /***
+    /***
      * Agrega el TR del title de cada row
      * @param varchar $tds //tds que contiene el row del titulo
      * @return varchar $result
@@ -110,14 +128,14 @@ CLASS STRFN
         return $result;
     }
 
-     /***
-     * Agrega el TABLE 
+    /***
+     * Agrega el TABLE
      * @param varchar
      * @param varchar $class //The class Name
-     * @param varchar $width //width size 
+     * @param varchar $width //width size
      * @param varchar $border //1 = yes, 0 = no
-     * @param int $cellPad 
-     * @param int $celSpc 
+     * @param int $cellPad
+     * @param int $celSpc
      * @return varchar $result  // the complete table
      */
     public function add_table($tableInfo,$class = "",$width="98%",$border=0,$cellPad = 0, $celSpc = 0)
@@ -150,12 +168,12 @@ CLASS STRFN
     {
         if($dato=="")
         {
-           return '-';
+            return '-';
         }
         else {
             if($type=='_STR_' || $type == '_MON_' || $type  == '_SDAT_' || $type == '_CDAT_')
             {
-               if($type == '_STR_')
+                if($type == '_STR_')
                 {
                     // es de tipo string
                     return $dato;
@@ -183,34 +201,34 @@ CLASS STRFN
                 return $dato;
             }
         }
-        
+
     }
-    
+
 
     /**
-	 * Realiza la validacion de que un dato venga bien codificado para mostrarse
-	 * @param varchar $dato
-	 * @return varchar $dato //modificado
+     * Realiza la validacion de que un dato venga bien codificado para mostrarse
+     * @param varchar $dato
+     * @return varchar $dato //modificado
      */
     public function fixString($dato,$ins=0)
     {
-		if($ins==0)
-		{
-			if($dato != "")
-			{
-				$frase_original  = strip_tags(stripslashes(utf8_decode($dato)));
-				//$frase_original  = utf8_encode($dato);
-				//$dato=utf8_encode($dato);
-				return $frase_original;
-			}
-			else{
-				return $dato;
-			}
-		}
-		else
-		{
-			return $dato;	
-		}
+        if($ins==0)
+        {
+            if($dato != "")
+            {
+                $frase_original  = strip_tags(stripslashes(utf8_decode($dato)));
+                //$frase_original  = utf8_encode($dato);
+                //$dato=utf8_encode($dato);
+                return $frase_original;
+            }
+            else{
+                return $dato;
+            }
+        }
+        else
+        {
+            return $dato;
+        }
     }
 
 
@@ -233,24 +251,24 @@ CLASS STRFN
             else
             {
                 $sub_query .= "'".$dato."')";
-            }   
-       }
+            }
+        }
 
-       return $sub_query;
+        return $sub_query;
     }
-	
-	public function val_seleccionarWord($data)
-	{
-		if($data == 'Seleccionar...')
-			$data = '';
-		return $data;
-		}
-	
-	
+
+    public function val_seleccionarWord($data)
+    {
+        if($data == 'Seleccionar...')
+            $data = '';
+        return $data;
+    }
+
+
     /***
      * valida campo vacio en fechas para concatenar al query de busqueda
      * @param varchar $fieldName1
-	 * @param varchar $fecha1
+     * @param varchar $fecha1
      * @param varchar $fecha2
      * @return varchar $resultado
      */
@@ -258,19 +276,19 @@ CLASS STRFN
     {
         $sub_query = "";
         if ($fecha1 != "")
-		{
-           if($fecha2 != "")
-		   {
-			   $sub_query .= " AND (".$fieldName1." BETWEEN '".$fecha1."' AND '".$fecha2."') ";
-		   }
-		   else
-		   {
-		        $sub_query .= " AND (".$fieldName." LIKE '%".$fecha1."%') ";
-		   }
-   
-       }
+        {
+            if($fecha2 != "")
+            {
+                $sub_query .= " AND (".$fieldName1." BETWEEN '".$fecha1."' AND '".$fecha2."') ";
+            }
+            else
+            {
+                $sub_query .= " AND (".$fieldName." LIKE '%".$fecha1."%') ";
+            }
 
-       return $sub_query;
+        }
+
+        return $sub_query;
     }
 
 
@@ -291,7 +309,7 @@ CLASS STRFN
 
 
 
-     /***
+    /***
      * Genera la liga de detalle para un listado
      * @param varchar $link   // liga que abrira formada desde al <a href y lo que se necesite, la funcion cierra el </a>
      * @param varchar $displayValue // valor a desplegar
@@ -299,7 +317,7 @@ CLASS STRFN
      */
     public  function make_personilizedLink($link,$displayValue)
     {
-       return $link.$displayValue.'</a>';
+        return $link.$displayValue.'</a>';
     }
 
 
@@ -321,10 +339,10 @@ CLASS STRFN
      */
     public  function make_decryptGet($valor)
     {
-       return unserialize(base64_decode($valor));
+        return unserialize(base64_decode($valor));
     }
 
-    
+
     /***
      * Pinta un div para mostrar los msg de Error, Warning, Ok
      * @param varchar $msg // datmensajeos a mostrar
@@ -366,7 +384,7 @@ CLASS STRFN
     }
 
 
-     /**
+    /**
      * StartsWith
      * Tests if a text starts with an given string.
      *
@@ -378,57 +396,57 @@ CLASS STRFN
         // Recommended version, using strpos
         return strpos($Haystack, $Needle) === 0;
     }
-    
-	
-	/***
-	**/
-	function set_encodingForms($dato){
-			$user_agent = $_SERVER['HTTP_USER_AGENT']; 
-			
-			
-			if (preg_match('/Firefox/i', $user_agent)) { 
-				$dato=utf8_encode($dato);
-			}else
-			
-			if (preg_match('/Chrome/i', $user_agent)) { 
-				$dato=$dato;
-			}else
-			
-			if (preg_match('/Safari/i', $user_agent)) { 
-				$dato=$dato;
-			}else
-			{
-				$dato=utf8_encode($dato);
-			}
-			
-			
-			
-			return $dato;
-	}
-	
-	
-	function gen_uuid() {
-    return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-        // 32 bits for "time_low"
-        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
 
-        // 16 bits for "time_mid"
-        mt_rand( 0, 0xffff ),
 
-        // 16 bits for "time_hi_and_version",
-        // four most significant bits holds version number 4
-        mt_rand( 0, 0x0fff ) | 0x4000,
+    /***
+     **/
+    function set_encodingForms($dato){
+        $user_agent = $_SERVER['HTTP_USER_AGENT'];
 
-        // 16 bits, 8 bits for "clk_seq_hi_res",
-        // 8 bits for "clk_seq_low",
-        // two most significant bits holds zero and one for variant DCE1.1
-        mt_rand( 0, 0x3fff ) | 0x8000,
 
-        // 48 bits for "node"
-        mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
-    );
-	}
-	
+        if (preg_match('/Firefox/i', $user_agent)) {
+            $dato=utf8_encode($dato);
+        }else
+
+            if (preg_match('/Chrome/i', $user_agent)) {
+                $dato=$dato;
+            }else
+
+                if (preg_match('/Safari/i', $user_agent)) {
+                    $dato=$dato;
+                }else
+                {
+                    $dato=utf8_encode($dato);
+                }
+
+
+
+        return $dato;
+    }
+
+
+    function gen_uuid() {
+        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            // 32 bits for "time_low"
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+
+            // 16 bits for "time_mid"
+            mt_rand( 0, 0xffff ),
+
+            // 16 bits for "time_hi_and_version",
+            // four most significant bits holds version number 4
+            mt_rand( 0, 0x0fff ) | 0x4000,
+
+            // 16 bits, 8 bits for "clk_seq_hi_res",
+            // 8 bits for "clk_seq_low",
+            // two most significant bits holds zero and one for variant DCE1.1
+            mt_rand( 0, 0x3fff ) | 0x8000,
+
+            // 48 bits for "node"
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+        );
+    }
+
     /***
      * Genera la liga de detalle para un listado
      * @param varchar $link   // liga que abrira formada desde al <a href y lo que se necesite, la funcion cierra el </a>
@@ -436,12 +454,12 @@ CLASS STRFN
      * @return varchar $result // string con liga formada
      */
     public  function checkDatetime($fecha, $tipoSeparador='/')
-    {	   
-	   $sp1 = explode(" ",$fecha);
-	   $date = $sp1[0];
-	   $hora = $sp1[1];
-	   
-	   $sp2 = explode($tipoSeparador,$date);
+    {
+        $sp1 = explode(" ",$fecha);
+        $date = $sp1[0];
+        $hora = $sp1[1];
+
+        $sp2 = explode($tipoSeparador,$date);
 
         if($tipoSeparador != '/') {
             $anio = $sp2[0];
@@ -454,19 +472,19 @@ CLASS STRFN
             $dia = $sp2[1];
         }
 
-	   if(strlen($mes)<2){
-		   $mes = "0".$mes;
-		}
-		
-		if(strlen($dia)<2){
-		   $dia = "0".$dia;
-		}
-		
-		$hora = "00:00:00";
-		
-		$newDateTime = $anio."-".$mes."-".$dia."T".$hora;
-	   
-	   return $newDateTime;
+        if(strlen($mes)<2){
+            $mes = "0".$mes;
+        }
+
+        if(strlen($dia)<2){
+            $dia = "0".$dia;
+        }
+
+        $hora = "00:00:00";
+
+        $newDateTime = $anio."-".$mes."-".$dia."T".$hora;
+
+        return $newDateTime;
     }
 
 
@@ -497,6 +515,6 @@ CLASS STRFN
 
         return $newDateTime;
     }
-	
-}	
+
+}
 ?>

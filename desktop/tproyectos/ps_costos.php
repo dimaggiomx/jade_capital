@@ -40,13 +40,13 @@ if ($_POST) {
 
     // actualizo los datos totales y actualizo la grafica
     /// Obtiene el AVANCE TOTAL ACTUAL
-    $avance = $myIns->get_datosavance($DBcon, $idProyecto);
     if($porcentajeAvance == 100)
     {
-        $avance = $avance+1;
-        $myIns->upd_avance($DBcon,$idProyecto,$avance);
+        //$avance = $avance+1;
+        $myIns->upd_tavance($DBcon,$idProyecto,"cs14", 1);
     }
-    $graficaTotal = $myIns->set_displayAvanceTotalDiv(18,$avance);
+    $avance = $myIns->get_totaldatostavance($DBcon, $idProyecto);
+    $graficaTotal = $myIns->set_displayAvanceTotalDiv(19,$avance);
     $res['graf_total'] = $graficaTotal;
 }
 
