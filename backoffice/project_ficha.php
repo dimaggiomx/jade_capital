@@ -28,7 +28,7 @@ $datediff = $last_date - $now;
 $diasRestantes=floor($datediff/(60*60*24));
 
 // para la galeria
-$dir1 = $_SESSION["ses_id"];
+$dir1 = $datosProy->idusuario;  //$_SESSION["ses_id"];
 $dir2 = $_SESSION["ses_idP"];
 $dir3 = "galeria";
 
@@ -96,8 +96,8 @@ $dispPlan = $miMarket->disp_plan();
     <title><?php echo C_P_TITLE; ?> - Mi Perfil</title>
     <?php include ('includes/icss.php'); ?>
     <!-- Para carga de imagenes/documentos -->
-    <link href="../plugins/bower_components/dropzone-master/dist/dropzone.css" rel="stylesheet" type="text/css" />
-    <!-- Date picker plugins css -->
+    <link href="../plugins/bower_components/owl.carousel/owl.carousel.min.css" rel="stylesheet" type="text/css" />
+    <link href="../plugins/bower_components/owl.carousel/owl.theme.default.css" rel="stylesheet" type="text/css" />    <!-- Date picker plugins css -->
     <link href="../plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
     <link type="text/css" rel="stylesheet" href="../plugins/bower_components/jsgrid/dist/jsgrid.min.css" />
     <link type="text/css" rel="stylesheet" href="../plugins/bower_components/jsgrid/dist/jsgrid-theme.min.css" />
