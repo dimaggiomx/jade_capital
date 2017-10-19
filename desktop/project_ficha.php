@@ -28,7 +28,7 @@ $datediff = $last_date - $now;
 $diasRestantes=floor($datediff/(60*60*24));
 
 // para la galeria
-$dir1 = $_SESSION["ses_id"];
+$dir1 = $datosProy->idusuario; // $_SESSION["ses_id"];
 $dir2 = $_SESSION["ses_idP"];
 $dir3 = "galeria";
 
